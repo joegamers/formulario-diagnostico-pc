@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Express Para PC - JoeStudio Tech</title>
+    <meta name="description"
+        content="Diagnóstico express para reparación de computadoras. Identificamos el problema de tu equipo rápidamente y te ofrecemos soluciones eficientes. ¡Contáctanos ahora!">
+    <meta name="keywords"
+        content="reparación de computadoras, diagnóstico express, servicio técnico, reparación de laptops, arreglo de computadoras, problemas de computadora">
+    <meta name="author" content="JoeGamers">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://diagnostico-express.joestudio.blog" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-color: #1e293b;
+            --background-color: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge {
+            background: #dbeafe;
+            color: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            position: relative;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-box h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: "✓";
+            color: #16a34a;
+            font-weight: bold;
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-step {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-step h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin: 1rem 0 0.5rem;
+            color: var(--text-color);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        button[type="submit"] {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button[type="submit"]:hover {
+            background: var(--secondary-color);
+        }
+
+        .whatsapp-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .privacy-notice {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #prevBtn {
+            background: #e2e8f0;
+            color: var(--text-color);
+        }
+
+        #prevBtn:hover {
+            background: #cbd5e1;
+        }
+
+        #nextBtn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        #nextBtn:hover {
+            background: var(--secondary-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 1rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">
+                <i class="fas fa-tools"></i> Servicio Técnico Certificado Por Joel Antillano
+            </div>
+            <h1>Diagnóstico Express</h1>
+            <p>Recibe una evaluación preliminar gratuita en menos de 24 horas</p>
+        </header>
+
+        <section class="info-box">
+            <h2><i class="fas fa-info-circle"></i> Beneficios del diagnóstico express</h2>
+            <ul>
+                <li><strong>Atención prioritaria:</strong> Saltar la lista de espera con tu diagnóstico previo</li>
+                <li><strong>Presupuesto anticipado:</strong> Recibe una estimación de costo y tiempo</li>
+                <li><strong>Solución rápida:</strong> Llegaré preparado con las herramientas y repuestos necesarios</li>
+            </ul>
+        </section>
+
+        <form id="diagnosticForm" class="diagnostic-form">
+            <div class="form-section">
+                <!-- Página 1 - Información personal -->
+                <div class="page active">
+                    <div class="form-step">
+                        <h3><i class="fas fa-user"></i> Información personal</h3>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label for="name">Nombre completo</label>
+                                <input type="text" id="name" required placeholder="Ej: María González">
+                            </div>
+                            <div class="input-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="tel" id="phone" required placeholder="Ej: 04123456789">
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" required placeholder="tucorreo@ejemplo.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Página 2 - Información del dispositivo -->
+                <div class="page">
+                    <div class="form-step">
+                        <h3><i class="fas fa-laptop"></i> Información del dispositivo</h3>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label for="device_type">Tipo de dispositivo</label>
+                                <select id="device_type" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="laptop">Laptop/Portátil</option>
+                                    <option value="desktop">Computadora de escritorio</option>
+                                    <option value="all-in-one">All-in-One</option>
+                                    <option value="other">Otro/No lo sé</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="brand">Marca</label>
+                                <input type="text" id="brand" placeholder="Ej: Dell, HP, Apple">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Página 3 - Descripción del problema -->
+                <div class="page">
+                    <div class="form-step">
+                        <h3><i class="fas fa-bug"></i> Descripción del problema</h3>
+                        <div class="input-group">
+                            <label for="problem">Tipo de problema principal</label>
+                            <select id="problem" required>
+                                <option value="">Seleccione...</option>
+                                <option value="no_enciende">No enciende</option>
+                                <option value="lentitud">Funcionamiento lento</option>
+                                <option value="pantalla">Problemas de pantalla</option>
+                                <option value="internet">Conexión a Internet</option>
+                                <option value="sonido">Problemas de sonido</option>
+                                <option value="virus">Sospecha de virus</option>
+                                <option value="disco">Problemas de almacenamiento</option>
+                                <option value="calentamiento">Sobrecalentamiento</option>
+                                <option value="otro">Otro problema</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="description">Descripción detallada del problema</label>
+                            <textarea id="description" rows="4" required
+                                placeholder="Ej: Mi laptop no enciende y hace un ruido raro..."></textarea>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label for="os">Sistema operativo</label>
+                                <select id="os" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="windows">Windows</option>
+                                    <option value="macos">macOS</option>
+                                    <option value="linux">Linux</option>
+                                    <option value="other">Otro/No lo sé</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="backup">Copia de seguridad</label>
+                                <select id="backup" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="si">Sí tengo</option>
+                                    <option value="no">No tengo</option>
+                                    <option value="no_se">No lo sé</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Página 4 - Historial reciente -->
+                <div class="page">
+                    <div class="form-step">
+                        <h3><i class="fas fa-history"></i> Historial reciente</h3>
+                        <div class="input-group">
+                            <label for="recent_changes">Cambios recientes en el equipo</label>
+                            <textarea id="recent_changes" rows="3"
+                                placeholder="Ej: Instalé un nuevo programa la semana pasada..."></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="external_devices">Dispositivos externos conectados</label>
+                            <input type="text" id="external_devices" placeholder="Ej: USB, disco duro externo...">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="error_message">Mensajes de error recibidos</label>
+                            <textarea id="error_message" rows="3"
+                                placeholder="Ej: Aparece el error 'Disco duro no encontrado'..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Página 5 - Uso y configuración -->
+                <div class="page">
+                    <div class="form-step">
+                        <h3><i class="fas fa-cogs"></i> Uso y configuración</h3>
+                        <div class="input-group">
+                            <label for="frequent_programs">Programas de uso frecuente</label>
+                            <textarea id="frequent_programs" rows="3"
+                                placeholder="Ej: Office, Photoshop, navegadores web..."></textarea>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label for="usage_type">Uso principal del equipo</label>
+                                <select id="usage_type" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="trabajo">Trabajo/Oficina</option>
+                                    <option value="estudio">Estudio</option>
+                                    <option value="diseño">Diseño/Edición</option>
+                                    <option value="juegos">Juegos</option>
+                                    <option value="internet">Navegación web</option>
+                                    <option value="otro">Otro uso</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="performance_issue">Problemas específicos con programas</label>
+                                <input type="text" id="performance_issue" placeholder="Ej: Se bloquea con Photoshop...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button type="button" id="prevBtn">Anterior</button>
+                <button type="button" id="nextBtn">Siguiente</button>
+            </div>
+        </form>
+
+        <p class="privacy-notice">
+            <i class="fas fa-lock"></i> Tus datos están protegidos. No compartiré tu información con terceros.
+        </p>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> JoeGamers Dev. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showPage(index) {
+            pages.forEach((page, i) => {
+                page.classList.toggle('active', i === index);
+            });
+
+            prevBtn.disabled = index === 0;
+            nextBtn.textContent = index === pages.length - 1 ? 'Enviar' : 'Siguiente';
+        }
+
+        function validatePage(index) {
+            const currentPage = pages[index];
+            const inputs = currentPage.querySelectorAll('input, select, textarea[required]');
+
+            for (const input of inputs) {
+                if (!input.value.trim()) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Campo requerido',
+                        text: `Por favor completa el campo: ${input.previousElementSibling.textContent}`,
+                    });
+                    input.focus();
+                    return false;
+                }
+
+                if (input.id === 'phone' && !/^\+?\d{8,15}$/.test(input.value.trim())) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Teléfono inválido',
+                        text: 'Ingresa un número de teléfono válido',
+                    });
+                    input.focus();
+                    return false;
+                }
+
+                if (input.id === 'email' && !/\S+@\S+\.\S+/.test(input.value.trim())) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email inválido',
+                        text: 'Ingresa un correo electrónico válido',
+                    });
+                    input.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function nextPage() {
+            if (!validatePage(currentPage)) return;
+
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            } else {
+                enviarWhatsApp();
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        prevBtn.addEventListener('click', previousPage);
+        nextBtn.addEventListener('click', nextPage);
+
+        showPage(0);
+
+        function enviarWhatsApp() {
+            const formData = {
+                'Nombre': document.getElementById('name').value,
+                'Teléfono': document.getElementById('phone').value,
+                'Correo': document.getElementById('email').value,
+                'Dispositivo': document.getElementById('device_type').options[document.getElementById('device_type').selectedIndex].text,
+                'Marca': document.getElementById('brand').value || 'No especificada',
+                'Problema principal': document.getElementById('problem').options[document.getElementById('problem').selectedIndex].text,
+                'Descripción': document.getElementById('description').value,
+                'Sistema operativo': document.getElementById('os').options[document.getElementById('os').selectedIndex].text,
+                'Copia de seguridad': document.getElementById('backup').options[document.getElementById('backup').selectedIndex].text,
+                'Cambios recientes': document.getElementById('recent_changes').value || 'Ninguno',
+                'Dispositivos externos': document.getElementById('external_devices').value || 'Ninguno',
+                'Mensajes de error': document.getElementById('error_message').value || 'Ninguno',
+                'Programas frecuentes': document.getElementById('frequent_programs').value || 'Ninguno',
+                'Uso principal': document.getElementById('usage_type').options[document.getElementById('usage_type').selectedIndex].text,
+                'Problemas específicos': document.getElementById('performance_issue').value || 'Ninguno'
+            };
+
+            let mensaje = `*Nuevo Diagnóstico Express*\n\n`;
+            mensaje += `*Datos del cliente:*\n`;
+            mensaje += `• Nombre: ${formData.Nombre}\n`;
+            mensaje += `• Teléfono: ${formData.Teléfono}\n`;
+            mensaje += `• Correo: ${formData.Correo}\n\n`;
+
+            mensaje += `*Información del dispositivo:*\n`;
+            mensaje += `• Tipo: ${formData.Dispositivo}\n`;
+            mensaje += `• Marca: ${formData.Marca}\n`;
+            mensaje += `• Sistema operativo: ${formData['Sistema operativo']}\n\n`;
+
+            mensaje += `*Descripción del problema:*\n`;
+            mensaje += `• Tipo: ${formData['Problema principal']}\n`;
+            mensaje += `• Detalles: ${formData.Descripción}\n`;
+            mensaje += `• Mensajes de error: ${formData['Mensajes de error']}\n\n`;
+
+            mensaje += `*Información adicional:*\n`;
+            mensaje += `• Copia de seguridad: ${formData['Copia de seguridad']}\n`;
+            mensaje += `• Cambios recientes: ${formData['Cambios recientes']}\n`;
+            mensaje += `• Dispositivos conectados: ${formData['Dispositivos externos']}\n`;
+            mensaje += `• Programas frecuentes: ${formData['Programas frecuentes']}\n`;
+            mensaje += `• Uso principal: ${formData['Uso principal']}\n`;
+            mensaje += `• Problemas específicos: ${formData['Problemas específicos']}`;
+
+            const url = `https://wa.me/584128204024?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+
+            document.getElementById('diagnosticForm').reset();
+            currentPage = 0;
+            showPage(0);
+
+            Swal.fire({
+                icon: 'success',
+                title: '¡Diagnóstico enviado con éxito!',
+                text: 'Serás redirigido a WhatsApp.',
+                confirmButtonText: 'Ok'
+            });
+        }
+
+        // JavaScript para obtener el año actual y actualizar el contenido del span con id "currentYear"
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
