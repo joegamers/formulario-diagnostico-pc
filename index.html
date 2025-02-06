@@ -250,7 +250,6 @@
             }
         }
 
-
         footer {
             background-color: #f8f9fa;
             padding: 1rem 0;
@@ -277,19 +276,22 @@
             <p>Recibe una evaluación preliminar gratuita en menos de 24 horas</p>
         </header>
 
-        <section class="info-box">
-            <h2><i class="fas fa-info-circle"></i> Beneficios del diagnóstico express</h2>
-            <ul>
-                <li><strong>Atención prioritaria:</strong> Saltar la lista de espera con tu diagnóstico previo</li>
-                <li><strong>Presupuesto anticipado:</strong> Recibe una estimación de costo y tiempo</li>
-                <li><strong>Solución rápida:</strong> Llegaré preparado con las herramientas y repuestos necesarios</li>
-            </ul>
-        </section>
-
         <form id="diagnosticForm" class="diagnostic-form">
             <div class="form-section">
-                <!-- Página 1 - Información personal -->
+                <!-- Página 0 - Información de beneficios -->
                 <div class="page active">
+                    <section class="info-box">
+                        <h2><i class="fas fa-info-circle"></i> Beneficios del diagnóstico express</h2>
+                        <ul>
+                            <li><strong>Atención prioritaria:</strong> Saltar la lista de espera con tu diagnóstico previo</li>
+                            <li><strong>Presupuesto anticipado:</strong> Recibe una estimación de costo y tiempo</li>
+                            <li><strong>Solución rápida:</strong> Llegaré preparado con las herramientas y repuestos necesarios</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Página 1 - Información personal -->
+                <div class="page">
                     <div class="form-step">
                         <h3><i class="fas fa-user"></i> Información personal</h3>
                         <div class="grid-2">
@@ -468,6 +470,9 @@
         }
 
         function validatePage(index) {
+            // No validar en la página de beneficios
+            if(index === 0) return true;
+
             const currentPage = pages[index];
             const inputs = currentPage.querySelectorAll('input, select, textarea[required]');
 
@@ -586,7 +591,6 @@
             });
         }
 
-        // JavaScript para obtener el año actual y actualizar el contenido del span con id "currentYear"
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
